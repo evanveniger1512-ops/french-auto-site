@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>French Auto - Concession Premium</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="quick-home" onclick="showPage('home')">⌂</button>
+  <div class="top-marquee"><span id="marqueeText"><b>NOUVEAUTÉ :</b> Découvrez nos nouveaux arrivages premium chez French Auto.</span></div>
+
+  <header>
+    <div class="logo"><span>FRENCH</span><b>AUTO</b><small>VOTRE CONCESSIONNAIRE AUTOMOBILE</small></div>
+    <nav>
+      <button class="nav-btn active" onclick="showPage('home',this)">Accueil</button>
+      <button class="nav-btn" onclick="showPage('catalogue',this)">Catalogue</button>
+      <button class="nav-btn" onclick="showPage('contact',this)">Contact</button>
+      <button class="nav-btn admin-nav" onclick="showPage('admin',this)">Espace admin</button>
+    </nav>
+  </header>
+
+  <section id="home" class="active">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Votre concessionnaire automobile</div>
+        <h1>L’excellence <span>French Auto</span></h1>
+        <p>Une concession moderne, premium et transparente pour découvrir, comparer et réserver vos véhicules auto et moto.</p>
+        <div class="hero-actions">
+          <button class="btn" onclick="openCatalogue('all')">Découvrir le catalogue →</button>
+          <button class="btn btn-outline" onclick="showPage('contact')">Nous contacter</button>
+          <button class="btn btn-outline" onclick="openReviewModal()">Laisser un avis</button>
+        </div>
+        <div class="hero-features">
+          <div class="feature-mini"><div>◇</div><strong>Véhicules garantis</strong><small>Contrôle qualité</small></div>
+          <div class="feature-mini"><div>€</div><strong>Prix affichés</strong><small>Transparence totale</small></div>
+          <div class="feature-mini"><div>✦</div><strong>Service premium</strong><small>Suivi personnalisé</small></div>
+          <div class="feature-mini"><div>✓</div><strong>Disponibilité</strong><small>Catalogue en direct</small></div>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-panel-img"></div>
+        <div class="hero-panel-row">
+          <div class="stat-box"><strong id="statTotal">0</strong><small>Véhicules</small></div>
+          <div class="stat-box"><strong id="statCars">0</strong><small>Autos</small></div>
+          <div class="stat-box"><strong id="statMotos">0</strong><small>Motos</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="lux-grid">
+        <div class="news-section">
+          <div class="section-head"><div><div class="kicker">Nouveautés</div><h2>Nouveaux arrivages</h2><p>Les derniers véhicules ajoutés par l’administration French Auto.</p></div><button class="btn btn-outline" onclick="openCatalogue('all')">Voir tout</button></div>
+          <div id="newArrivalsGrid" class="catalogue-grid"></div>
+          <div class="category-tiles">
+            <div class="category-tile auto" onclick="openCatalogue('auto')"><h3>Voitures</h3><p>Catalogue auto →</p></div>
+            <div class="category-tile moto" onclick="openCatalogue('moto')"><h3>Motos</h3><p>Catalogue moto →</p></div>
+          </div>
+        </div>
+        <aside class="side-about"><h3>Qui sommes-nous ?</h3><p>French Auto vous accompagne dans l’achat de véhicules avec une présentation claire, moderne et professionnelle.</p></aside>
+      </div>
+      <div class="home-review-box"><div class="review-head"><h3>Dernier avis</h3><button class="btn btn-outline" onclick="openAllReviewsModal()">Voir tous les avis</button></div><div id="globalRatingHome" class="global-rating"></div><div id="lastReviewHome"></div><div class="avis-ps"><strong>PS :</strong> Les avis sont affichés en petit ici pour garder une page d’accueil propre.</div></div>
+    </div>
+  </section>
+
+  <section id="catalogue" class="page"><div class="section-head"><div><div class="kicker">Sélection disponible</div><h2>Catalogue</h2><p>Découvrez les véhicules actuellement disponibles chez French Auto.</p></div></div><div class="filters"><button class="filter-btn active" onclick="renderCatalogue('all',this)">Tous</button><button class="filter-btn" onclick="renderCatalogue('auto',this)">Auto</button><button class="filter-btn" onclick="renderCatalogue('moto',this)">Moto</button><select id="brandFilter" class="brand-filter" onchange="renderCatalogue(currentTypeFilter)"><option value="all">Toutes les marques</option></select></div><div id="catalogueGrid" class="catalogue-grid"></div></section>
+
+  <section id="contact" class="page"><div class="section-head"><div><div class="kicker">Informations</div><h2>Contact</h2><p>Informations de la concession.</p></div></div><div class="contact-grid"><div class="contact-card"><h3>Horaires</h3><p>Lundi au samedi<br>10h00 à 00h00<br><br>Toute autre horaire uniquement sur demande.<br>Même en cas de fermeture, ouverture possible sur demande.</p></div><div class="contact-card"><h3>Coordonnées</h3><p>Téléphone : <span id="contactPhone">À compléter</span><br>Discord : <span id="contactDiscord">.gg/perpinyarp</span></p></div><div class="contact-card"><h3>Adresse</h3><p><span id="contactAddress">Adresse de la concession<br>À compléter</span></p><img id="gpsImage" class="gps-img" src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=900&q=80"></div></div></section>
+
+  <section id="admin" class="page"><div class="admin-panel"><div class="section-head"><div><div class="kicker">Gestion interne</div><h2>Espace admin</h2><p>Gestion du catalogue, avis et texte défilant.</p></div></div><div id="loginBox" class="login-box"><label>Identifiant administrateur</label><input type="text" id="adminIdInput" placeholder="Entre l'identifiant admin"><label>Code administrateur</label><input type="password" id="adminCodeInput" placeholder="Entre le code admin"><button class="admin-btn" onclick="loginAdmin()">Connexion</button><p id="loginError"></p></div><div id="adminContent" class="hidden">
+    <div class="form-box"><h3>Modifier le texte défilant</h3><label>Texte en haut du site</label><input type="text" id="newMarqueeText"><button onclick="saveMarquee()">Enregistrer le texte</button></div>
+    <div class="form-box"><h3>Modifier les coordonnées</h3><label>Numéro de téléphone</label><input type="text" id="adminPhoneInput"><button onclick="savePhone()">Enregistrer le téléphone</button><label>Discord du serveur</label><input type="text" id="adminDiscordInput"><button onclick="saveDiscord()">Enregistrer le Discord</button><label>Adresse de la concession</label><textarea id="adminAddressInput"></textarea><button onclick="saveAddress()">Enregistrer l’adresse</button><label>Image du point GPS</label><input type="file" id="gpsImageFile" accept="image/*" onchange="previewGpsImage(event)"><input type="text" id="gpsImageInput" placeholder="Ou colle un lien image GPS"><button onclick="saveGpsImage()">Enregistrer l’image GPS</button><div id="gpsPreviewBox" class="preview-box"><img id="gpsPreview"></div></div>
+    <div class="form-box"><h3 id="formTitle">Ajouter un véhicule</h3><input type="hidden" id="editId"><div class="form-grid"><div><label>Nom du véhicule</label><input type="text" id="vehicleName" placeholder="Ex : RS6 Avant"></div><div><label>Marque</label><input type="text" id="vehicleBrand" placeholder="Ex : Audi"></div><div><label>Catégorie</label><select id="vehicleType"><option value="auto">Auto</option><option value="moto">Moto</option></select></div><div><label>Prix</label><input type="text" id="vehiclePrice" placeholder="Ex : 85 000 €"></div><div><label>Photo</label><input type="file" id="vehicleImageFile" accept="image/*" onchange="previewVehicleImage(event)"><input type="text" id="vehicleImage" placeholder="Ou colle un lien image"></div></div><label>Description</label><textarea id="vehicleDescription"></textarea><label class="check"><input type="checkbox" id="vehicleNew"> Mettre en nouveauté</label><button onclick="saveVehicle()">Enregistrer</button><button class="danger small-btn" onclick="resetForm()">Annuler</button><div id="imagePreviewBox" class="preview-box"><img id="imagePreview"></div></div>
+    <div class="admin-list"><h3>Avis enregistrés</h3><button class="admin-btn danger" onclick="clearAllReviews()">Supprimer tous les avis</button><div id="adminReviewList"></div></div>
+    <div class="admin-list"><h3>Véhicules enregistrés</h3><button class="admin-btn danger" onclick="clearAllVehicles()">Supprimer tous les véhicules</button><button class="admin-btn" onclick="resetDefaultVehicles()">Remettre les véhicules de base</button><div id="adminVehicleList"></div></div>
+  </div></div></section>
+
+  <footer><div class="footer-logo">FRENCH <b>AUTO</b></div><div><p>© 2026 French Auto — Concession automobile premium</p><p>Site réalisé par <span>Evan</span> pour <strong>Perpinyà RP</strong></p></div></footer>
+
+  <div id="allReviewsModal" class="modal"><div class="modal-card wide"><button onclick="closeAllReviewsModal()" class="close-modal">×</button><h2>Tous les avis clients</h2><p>Découvrez tous les retours des clients French Auto.</p><div id="globalRatingModal" class="global-rating"></div><div id="allReviewsGrid" class="all-reviews-grid"></div></div></div>
+  <div id="reviewModal" class="modal"><div class="modal-card"><button onclick="closeReviewModal()" class="close-modal">×</button><h3>Laisser un avis</h3><div class="form-grid"><div><label>Nom et prénom RP</label><input type="text" id="reviewName"></div><div><label>Véhicule acheté</label><input type="text" id="reviewVehicle"></div><div><label>Note</label><select id="reviewRating"><option value="5">★★★★★ - 5/5</option><option value="4">★★★★☆ - 4/5</option><option value="3">★★★☆☆ - 3/5</option><option value="2">★★☆☆☆ - 2/5</option><option value="1">★☆☆☆☆ - 1/5</option></select></div></div><label>Votre avis</label><textarea id="reviewMessage"></textarea><button class="admin-btn" onclick="saveReview()">Publier l’avis</button></div></div>
+  <script src="script.js"></script>
+</body>
+</html>
